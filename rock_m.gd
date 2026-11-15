@@ -25,6 +25,7 @@ func _ready() -> void:
 	if region.size != Vector2.ZERO:
 		sprite.region_enabled = true
 		sprite.region_rect = region
+	# Cada roca usa su propia copia de la forma de colisión
  
  
 ## El jugador llama a esta función cada vez que golpea la roca.

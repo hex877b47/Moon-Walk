@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://iw8mlcbjvtcj"]
+
+[ext_resource type="Texture2D" uid="uid://c8si2blefwwbu" path="res://ui/Menu_incio.jpg" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://ddq733ljwvxgr" path="res://main_menu.gd" id="1_7vrkn"]
+
+[node name="MainMenu" type="Control" unique_id=1752892385]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vrkn")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1335645608]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+stretch_mode = 0
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer" unique_id=150208506]
+layout_mode = 2
+
+[node name="Fondo" type="TextureRect" parent="AspectRatioContainer/Panel" unique_id=616732120]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_06t4h")
+expand_mode = 3
+
+[node name="BtnIniciar" type="Button" parent="AspectRatioContainer/Panel" unique_id=1335015760]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.386
+anchor_top = 0.465
+anchor_right = 0.693
+anchor_bottom = 0.616
+flat = true
+
+[node name="BtnSalir" type="Button" parent="AspectRatioContainer/Panel" unique_id=1854945486]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.386
+anchor_top = 0.646
+anchor_right = 0.686
+anchor_bottom = 0.762
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true
+
+[connection signal="pressed" from="AspectRatioContainer/Panel/BtnSalir" to="." method="_on_btn_salir_pressed"]

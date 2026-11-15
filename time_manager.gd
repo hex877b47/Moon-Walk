@@ -48,3 +48,9 @@ func get_total_minutes()->float:
 
 func real_second_to_game_minutes(seconds:float)->float:
 	return seconds * (MINUTES_PER_DAY/day_length_seconds)
+
+func reset() -> void:
+	day = 1
+	time_of_day = 6.0 * 60.0
+	_last_minute = -1
+	paused = false
