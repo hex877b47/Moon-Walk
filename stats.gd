@@ -41,6 +41,8 @@ const PRODUCTION := {
 	"oxygen": 60.0,    # generador de O2 (dentro de la base)
 	"water": 40.0,     # reciclador de agua (dentro de la base)
 }
+# De noche lunar los paneles no generan: la estación funciona con baterías a esta fracción.
+const NIGHT_BATTERY_POWER := 0.35
 # "energy" es el DESCANSO del astronauta (100 % = sin cansancio).
 # Baja con el tiempo y al caminar; se recupera descansando quieto dentro de la base.
 const ENERGY_REST_RECOVERY_PER_DAY := 90.0
@@ -425,7 +427,8 @@ func _death_cause() -> String:
 func station_power() -> float:
 	if not modules.get("solar_panels", false) or is_broken("solar_panels"):
 		return 0.0
-	return solar_multiplier
+	var sun := 1.0 if TimeManager.is_daylight() else NIGHT_BATTERY_POWER
+	return solar_multiplier * sun
 
 
 func _is_working(m: String) -> bool:
