@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED := 90.0 
+const MINE_RANGE := 24.0   # distancia (px) para golpear una roca con E
 const PIXELS_PER_METER := 40.0   # 90 px/s ≈ 2.2 m/s; ajusta si tu mapa es más grande o más chico
 const DEFAULT_SCALE := Vector2(0.3, 0.3)
 
@@ -35,6 +36,9 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 		
+	if Input.is_action_just_pressed("interact"):
+		_try_mine()
+
 	var dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if dir != Vector2.ZERO:
 		facing = dir
@@ -66,3 +70,16 @@ func _update_animation(dir: Vector2) -> void:
 ## Aplica la escala predefinida del diccionario según la animación actual
 func _apply_anim_scale() -> void:
 	_anim.scale = ANIM_SCALES.get(_anim.animation, DEFAULT_SCALE)
+
+
+## E cerca de una roca: la golpea con el pico (se desgasta; ver Stats.use_tool).
+func _try_mine() -> void:
+	var best: Node2D = null
+	var best_d := MINE_RANGE
+	for r in get_tree().get_nodes_in_group("minable"):
+		var d := global_position.distance_to(r.global_position)
+		if d < best_d and r.has_method("hit"):
+			best_d = d
+			best = r
+	if best:
+		best.hit()

@@ -16,10 +16,19 @@ signal game_won(day: int, science: int)
 signal eva_changed(active: bool)
 signal science_changed(points: int)
 signal harvest_ready_changed(is_ready: bool)
+signal tool_changed(tool_name: String, durability: float)
 
 const MAX_VALUE := 100.0
 const MINUTES_PER_DAY := 1440.0
 const GOAL_DAY := 7    # se gana al empezar el día 7 (≈ 58 min reales)
+
+# =====================================================
+# HERRAMIENTAS (se desgastan al usarse; se reparan en la mesa de reparaciones)
+# =====================================================
+const TOOL_NAMES := {"pickaxe": "Pico", "drill": "Taladro"}
+const TOOL_WEAR_PER_USE := 8.0       # % de durabilidad por uso
+const TOOL_WARN_LEVEL := 30.0        # aviso al bajar de este %
+const TOOL_REPAIR_ENERGY := 20.0     # descanso que cuesta reparar desde 0 % (proporcional a lo gastado)
 
 # =====================================================
 # CONSUMO BASE (por día de juego, en reposo)
@@ -128,6 +137,8 @@ var modules := {
 	"greenhouse": true,
 	"solar_panels": true,
 }
+
+var tool_durability := {"pickaxe": 100.0, "drill": 100.0}
 
 var broken := {}                 # módulo -> true si está averiado
 var greenhouse_progress := 0.0   # minutos de juego de crecimiento
@@ -350,6 +361,52 @@ func is_broken(m: String) -> bool:
 
 
 # ---------- ACCIONES ----------
+
+## Llamar cada vez que se usa una herramienta. Devuelve false si está rota (no se puede usar).
+func use_tool(t: String, wear: float = TOOL_WEAR_PER_USE) -> bool:
+	if is_dead or won or not tool_durability.has(t):
+		return false
+	var before: float = tool_durability[t]
+	if before <= 0.0:
+		EventBus.message.emit("¡%s roto! Repáralo en la mesa de reparaciones." % TOOL_NAMES[t])
+		return false
+	var after := maxf(before - wear, 0.0)
+	tool_durability[t] = after
+	tool_changed.emit(t, after)
+	if after <= 0.0:
+		EventBus.message.emit("¡Se rompió: %s! Repáralo en la mesa de reparaciones." % TOOL_NAMES[t])
+	elif after <= TOOL_WARN_LEVEL and before > TOOL_WARN_LEVEL:
+		EventBus.message.emit("%s muy desgastado (%d %%). Repáralo en la mesa de reparaciones." % [TOOL_NAMES[t], int(after)])
+	return true
+
+
+## La herramienta más gastada ("" si todas están al 100 %)
+func most_worn_tool() -> String:
+	var worst := ""
+	var lowest := MAX_VALUE
+	for t in tool_durability:
+		if tool_durability[t] < lowest:
+			lowest = tool_durability[t]
+			worst = t
+	return worst
+
+
+func tool_repair_cost(t: String) -> float:
+	return TOOL_REPAIR_ENERGY * (1.0 - tool_durability[t] / MAX_VALUE)
+
+
+func repair_tool(t: String) -> bool:
+	var cost := tool_repair_cost(t)
+	if values["energy"] < cost:
+		EventBus.message.emit("Estás muy cansado para reparar el %s." % TOOL_NAMES[t])
+		return false
+	change("energy", -cost)
+	tool_durability[t] = MAX_VALUE
+	tool_changed.emit(t, MAX_VALUE)
+	add_science(1)
+	EventBus.message.emit("%s reparado (−%d de descanso)." % [TOOL_NAMES[t], int(cost)])
+	return true
+
 func begin_eva() -> bool:
 	if in_eva:
 		return true
@@ -458,6 +515,8 @@ func reset() -> void:
 		"energy": 80.0, "radiation": START_RADIATION, "health": 100.0}
 	dose_msv = START_RADIATION / 100.0 * LETHAL_DOSE_MSV
 	broken.clear()
+	tool_durability = {"pickaxe": 100.0, "drill": 100.0}
+	Inventario.clear()
 	_last_working.clear()
 	greenhouse_progress = 0.0
 	solar_multiplier = 1.0
@@ -465,11 +524,16 @@ func reset() -> void:
 	is_dead = false
 	won = false
 	in_shelter = false
-	in_eva = false
+	if in_eva:
+		in_eva = false
+		eva_changed.emit(false)
 	flare_hours_left = 0.0
 	walked_total_m = 0.0
 	_walked_recently = false
 	TimeManager.reset()
 	EventDirector.reset()
+	Messages.reset()
 	for s in values:
 		stat_changed.emit(s, values[s], MAX_VALUE)
+	for t in tool_durability:
+		tool_changed.emit(t, tool_durability[t])

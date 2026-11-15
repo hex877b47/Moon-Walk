@@ -9,17 +9,61 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Label" type="Label" parent="." unique_id=1660065915]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 3.0
+offset_right = 332.0
+offset_bottom = 26.0
+text = "Water"
+
+[node name="Label" type="Label" parent="Label" unique_id=2027498630]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 32.0
+offset_right = 166.0
+offset_bottom = 55.0
+text = "Food"
+
+[node name="Label" type="Label" parent="Label/Label" unique_id=39938524]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 32.0
+offset_right = 162.0
+offset_bottom = 55.0
+text = "Energy"
+
+[node name="Label" type="Label" parent="Label/Label/Label" unique_id=1528794434]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 29.0
+offset_right = 165.0
+offset_bottom = 52.0
+text = "Radiation"
+
+[node name="Label" type="Label" parent="Label/Label/Label/Label" unique_id=1877187270]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 35.0
+offset_right = 162.0
+offset_bottom = 58.0
+text = "Health"
+
+[node name="Label" type="Label" parent="Label/Label/Label/Label/Label" unique_id=1795393937]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 38.0
+offset_right = 164.0
+offset_bottom = 61.0
+text = "Oxygen"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=47943359]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 2.0
+offset_right = 163.0
+offset_bottom = 221.0
 theme_override_constants/separation = 6
 script = ExtResource("1_64ctp")
-
-[node name="oxygen" type="ProgressBar" parent="VBoxContainer" unique_id=327899984]
-self_modulate = Color(2.695322e-06, 0.86654675, 0.8285341, 1)
-layout_mode = 2
-script = ExtResource("1_37p78")
 
 [node name="water" type="ProgressBar" parent="VBoxContainer" unique_id=958711130]
 self_modulate = Color(0.052918397, 0.66025674, 0.99999994, 1)
@@ -50,3 +94,8 @@ self_modulate = Color(0.83945715, 0, 0.15792388, 1)
 layout_mode = 2
 script = ExtResource("1_37p78")
 stat_name = "health"
+
+[node name="oxygen" type="ProgressBar" parent="VBoxContainer" unique_id=327899984]
+self_modulate = Color(2.695322e-06, 0.86654675, 0.8285341, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")

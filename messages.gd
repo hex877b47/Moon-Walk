@@ -117,3 +117,10 @@ func _build_ui() -> void:
 	_source.add_theme_font_size_override("font_size", 12)
 	_source.modulate = Color(1, 1, 1, 0.6)
 	box.add_child(_source)
+
+
+func reset() -> void:
+	_seen.clear()
+	_queue.clear()
+	_current = null
+	_panel.visible = false

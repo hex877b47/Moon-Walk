@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bygwrxa0pi1jk"]
+
+[ext_resource type="Script" uid="uid://4rfwi4xxbtfj" path="res://puerta.gd" id="1_door"]
+[ext_resource type="Texture2D" uid="uid://c1dh05smq72mq" path="res://space station/puerta_imgg.png" id="2_8gvf5"]
+
+[node name="Puerta" type="StaticBody2D" unique_id=1121799645]
+script = ExtResource("1_door")
+
+[node name="Visual" type="Node2D" parent="." unique_id=2083235972]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=1264426435]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_8gvf5")

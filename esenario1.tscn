@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://duwjof564b2l4" path="res://moon base/B-7.png" id="7_htal3"]
 [ext_resource type="Texture2D" uid="uid://dym5f6pkdtbnn" path="res://moon base/B-8.png" id="8_kkb67"]
 [ext_resource type="Texture2D" uid="uid://dyh2o5f0cuoc7" path="res://moon base/B-9.png" id="9_l7jjy"]
-[ext_resource type="PackedScene" uid="uid://bktsknm7ksu1x" path="res://player.tscn" id="10_d0ce3"]
 [ext_resource type="PackedScene" uid="uid://djcxp84gnqkom" path="res://Rock.tscn" id="11_yuny3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sse2m"]
@@ -17830,9 +17829,6 @@ shape = SubResource("RectangleShape2D_ouo6w")
 position = Vector2(1162.7739, 324.06235)
 shape = SubResource("RectangleShape2D_560fu")
 
-[node name="Player" parent="." unique_id=1423148312 instance=ExtResource("10_d0ce3")]
-position = Vector2(315, 160)
-disable_mode = 2
-
 [node name="Node2D" parent="." unique_id=647713153 instance=ExtResource("11_yuny3")]
-position = Vector2(659, 252)
+position = Vector2(876, 326)
+scale = Vector2(0.41, 0.41)

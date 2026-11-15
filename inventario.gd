@@ -18,4 +18,10 @@ func remove_item(item_name: String, amount: int = 1) -> bool:
  
 func get_amount(item_name: String) -> int:
 	return items.get(item_name, 0)
- 
+
+
+## Vacía el inventario (al reiniciar la partida)
+func clear() -> void:
+	for item_name in items.keys():
+		item_changed.emit(item_name, 0)
+	items.clear()

@@ -3,7 +3,7 @@ extends Area2D
 ## Estación interactuable. Pon una instancia por módulo y elige `kind` en el Inspector.
 ## Averiado: mantén E para reparar. Refugio: automático al entrar. Esclusa: E sale/entra de EVA.
 
-@export_enum("oxygen_generator", "water_recycler", "greenhouse", "solar_panels", "shelter", "airlock") var kind: String = "oxygen_generator"
+@export_enum("oxygen_generator", "water_recycler", "greenhouse", "solar_panels", "shelter", "airlock", "workbench") var kind: String = "oxygen_generator"
 @export var repair_seconds := 1.5
 
 const COLORS := {
@@ -13,6 +13,7 @@ const COLORS := {
 	"solar_panels": Color(1.0, 0.85, 0.2),
 	"shelter": Color(0.6, 0.6, 0.65),
 	"airlock": Color(0.9, 0.5, 0.2),
+	"workbench": Color(0.7, 0.4, 0.9),
 }
 
 var _inside := false
@@ -83,5 +84,30 @@ func _process(delta: float) -> void:
 					EventBus.message.emit("No hay suficiente O2 o energía para salir.")
 		"shelter":
 			_label.text = "Refugio: la radiación baja"
+		"workbench":
+			_workbench(delta)
 		_:
 			_label.text = "%s: operativo" % Stats.MODULE_NAMES.get(kind, kind)
+
+
+## Mesa de reparaciones: mantén E para reparar la herramienta más gastada (cuesta descanso)
+func _workbench(delta: float) -> void:
+	var t := Stats.most_worn_tool()
+	if t == "":
+		_hold = 0.0
+		_label.text = "Mesa de reparaciones: herramientas en buen estado"
+		return
+	var tool_name: String = Stats.TOOL_NAMES[t]
+	var cost := Stats.tool_repair_cost(t)
+	if Stats.values["energy"] < cost:
+		_hold = 0.0
+		_label.text = "Muy cansado para reparar %s (cuesta %d de descanso)" % [tool_name, int(cost)]
+		return
+	if Input.is_action_pressed("interact"):
+		_hold += delta
+		if _hold >= repair_seconds:
+			_hold = 0.0
+			Stats.repair_tool(t)
+	else:
+		_hold = 0.0
+	_label.text = "Mantén [E] para reparar %s (%d %%) · cuesta %d de descanso" % [tool_name, int(_hold / repair_seconds * 100.0), int(cost)]

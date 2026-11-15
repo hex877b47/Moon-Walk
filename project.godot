@@ -18,9 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 TimeManager="*uid://d1a0ntgf8g5gq"
+Messages="*uid://c1dpb0dww7iju"
 Stats="*uid://c3misbgv3a1ex"
 EventBus="*uid://drev8luo6plqo"
 EventDirector="*uid://8ojaw6abkoun"
+Inventario="*uid://dhi26e0cujhcc"
 
 [display]
 

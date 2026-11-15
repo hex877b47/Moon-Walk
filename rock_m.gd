@@ -31,6 +31,8 @@ func _ready() -> void:
  
 ## El jugador llama a esta función cada vez que golpea la roca.
 func hit(damage: int = 1) -> void:
+	if not Stats.use_tool("pickaxe"):
+		return   # pico roto: repáralo en la mesa de reparaciones
 	health -= damage
 	_play_hit_effect()
 	if health <= 0:

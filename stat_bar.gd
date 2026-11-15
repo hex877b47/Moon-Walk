@@ -10,3 +10,4 @@ func _ready() -> void:
 func _on_stat_changed(n: String, v: float, _m: float) -> void:
 	if n == stat_name:
 		value = v
+		

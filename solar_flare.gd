@@ -18,8 +18,8 @@ var _blink_tween: Tween
 
 func setup(warning_minutes: float) -> void:
 	warning_total = warning_minutes
-	impact_at = TimeManager.get_total_minutes() + warning_minutes
-
+	impact_at = TimeManager.total_minutes() + warning_minutes
+	
 func _ready() -> void:
 	tint.modulate.a = 0.0
 	panel.modulate.a = 1.0
@@ -29,7 +29,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if _ending:
 		return
-	var now: float = TimeManager.get_total_minutes()
+	var now: float = TimeManager.total_minutes()
 
 	if not _impacted:
 		var left: float = impact_at - now
@@ -55,6 +55,8 @@ func _on_impact() -> void:
 	panel.visible = false
 	create_tween().tween_property(tint, "modulate:a", 0.25, 0.5)
 	impact_started.emit()
+	
+
 
 func _on_end() -> void:
 	var t := create_tween()
