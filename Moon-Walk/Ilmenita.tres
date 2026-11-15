@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MineralData" format=3 uid="uid://e71l4jdomewr"]
+
+[ext_resource type="Script" uid="uid://b5sv3lami6v2m" path="res://mineral_data.gd" id="1_32hun"]
+
+[resource]
+script = ExtResource("1_32hun")
+fact = "Se encontró en la mision Apollo 17. Se copone de hierro y titanio"
+metadata/_custom_type_script = "uid://b5sv3lami6v2m"

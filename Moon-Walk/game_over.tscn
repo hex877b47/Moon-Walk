@@ -1,0 +1,101 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1"]
+[ext_resource type="Texture2D" path="res://ui/Menu_pausa.jpg" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="PlacaTitulo"]
+bg_color = Color(0.42, 0.07, 0.1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.45, 0.45, 1)
+
+[sub_resource type="StyleBoxFlat" id="PlacaDetalle"]
+bg_color = Color(0.1, 0.13, 0.35, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.45, 0.65, 1, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+
+[node name="GameOver" type="CanvasLayer"]
+process_mode = 3
+layer = 11
+script = ExtResource("1")
+
+[node name="Oscuro" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.5
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Fondo" type="TextureRect" parent="AspectRatioContainer/Panel"]
+modulate = Color(1, 0.8, 0.8, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2")
+expand_mode = 1
+
+[node name="Titulo" type="Label" parent="AspectRatioContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19
+anchor_top = 0.21
+anchor_right = 0.81
+anchor_bottom = 0.41
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("PlacaTitulo")
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Detalle" type="Label" parent="AspectRatioContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.467
+anchor_right = 0.697
+anchor_bottom = 0.608
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("PlacaDetalle")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BtnReiniciar" type="Button" parent="AspectRatioContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.634
+anchor_right = 0.697
+anchor_bottom = 0.761
+flat = true
+
+[node name="BtnSalir" type="Button" parent="AspectRatioContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.787
+anchor_right = 0.697
+anchor_bottom = 0.932
+flat = true

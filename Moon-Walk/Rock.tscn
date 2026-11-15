@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://djcxp84gnqkom"]
+
+[ext_resource type="Texture2D" uid="uid://c8nst7pj4d01m" path="res://moon base/Rock.M.png" id="1_55vvm"]
+[ext_resource type="Script" uid="uid://bx3gd76wrg4vp" path="res://rock_m.gd" id="2_ru2eq"]
+
+[node name="Rock" type="StaticBody2D" unique_id=1244419393]
+script = ExtResource("2_ru2eq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1902375862]
+position = Vector2(533.75, 328.5)
+scale = Vector2(2.1142132, 2.0982144)
+texture = ExtResource("1_55vvm")
+region_enabled = true
+region_rect = Rect2(0, 53, 46, 36)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=821504386]
+polygon = PackedVector2Array(538, 290, 552, 290, 563, 303, 569, 318, 577, 324, 578, 344, 566, 344, 565, 349, 558, 347, 559, 355, 515, 358, 509, 350, 486, 348, 486, 327, 497, 313, 505, 307, 517, 298, 534, 298)

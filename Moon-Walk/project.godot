@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MoonWalk"
+run/main_scene="uid://iw8mlcbjvtcj"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+TimeManager="*uid://d1a0ntgf8g5gq"
+EventBus="*uid://drev8luo6plqo"
+Messages="*uid://c1dpb0dww7iju"
+Inventario="*uid://dhi26e0cujhcc"
+Stats="*uid://c3misbgv3a1ex"
+EventDirector="*uid://8ojaw6abkoun"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
