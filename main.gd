@@ -2,19 +2,18 @@ extends Node2D
 ## Escena principal: base + jugador + estaciones + HUD. Maneja noche, mensajes y fin de partida.
 
 const NIGHT_COLOR := Color(0.32, 0.38, 0.62)
+const END_DELAY := 1.5   # segundos para ver la animación "dead" antes de la pantalla de fin
 
 @onready var _night: CanvasModulate = $Night
 @onready var _msg: Label = $UI/Message
-@onready var _banner: Label = $UI/Banner
+@onready var _game_over: CanvasLayer = $GameOver
 
 var _msg_left := 0.0
-var _ended := false
 
 
 func _ready() -> void:
 	InputSetup.ensure()
 	_msg.text = ""
-	_banner.text = ""
 	EventBus.message.connect(_show_message)
 	Stats.player_died.connect(_on_died)
 	Stats.game_won.connect(_on_won)
@@ -38,19 +37,13 @@ func _show_message(text: String) -> void:
 
 
 func _on_died(reason: String) -> void:
-	_end("Has muerto: %s\nDía %d · Ciencia %d\nPulsa R para reiniciar" % [reason, TimeManager.day, Stats.science])
+	_end("GAME OVER", "%s\nDía %d · Ciencia %d" % [reason, TimeManager.day, Stats.science])
 
 
 func _on_won(d: int, sci: int) -> void:
-	_end("¡Sobreviviste hasta el día %d!\nCiencia: %d\nPulsa R para jugar de nuevo" % [d, sci])
+	_end("¡SOBREVIVISTE!", "Llegaste al día %d\nCiencia: %d" % [d, sci])
 
 
-func _end(text: String) -> void:
-	_ended = true
-	_banner.text = text
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if _ended and event is InputEventKey and event.pressed and event.keycode == KEY_R:
-		Stats.reset()
-		get_tree().reload_current_scene()
+func _end(titulo: String, detalle: String) -> void:
+	await get_tree().create_timer(END_DELAY).timeout
+	_game_over.mostrar(titulo, detalle)

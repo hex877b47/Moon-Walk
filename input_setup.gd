@@ -9,7 +9,7 @@ static func ensure() -> void:
 	_add("move_up", [KEY_W, KEY_UP])
 	_add("move_down", [KEY_S, KEY_DOWN])
 	_add("interact", [KEY_E])
-	_add("pause", [KEY_ESCAPE])
+	_add("pausa", [KEY_ESCAPE])
 
 static func _add(action: StringName, keys: Array) -> void:
 	if InputMap.has_action(action):
