@@ -48,7 +48,7 @@ func _on_exit(body: Node) -> void:
 
 
 func _process(delta: float) -> void:
-	var is_broken := Stats.is_broken(kind)
+	var is_broken: bool = Stats.is_broken(kind)
 	_rect.modulate = Color(1.0, 0.3, 0.3) if is_broken else Color.WHITE
 	if not _inside or Stats.is_dead or Stats.won:
 		return

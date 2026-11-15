@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-const SPEED := 90.0
+const SPEED := 90.0 
+const PIXELS_PER_METER := 40.0   # 90 px/s ≈ 2.2 m/s; ajusta si tu mapa es más grande o más chico
 const DEFAULT_SCALE := Vector2(0.3, 0.3)
 
 # Diccionario de escalas fijas por animación
@@ -29,7 +30,7 @@ func _ready() -> void:
 	_apply_anim_scale()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Stats.is_dead or Stats.won:
 		velocity = Vector2.ZERO
 		return
@@ -38,8 +39,9 @@ func _physics_process(_delta: float) -> void:
 	if dir != Vector2.ZERO:
 		facing = dir
 		
-	velocity = dir * SPEED
+	velocity = dir * SPEED * Stats.get_speed_multiplier()
 	move_and_slide()
+	Stats.register_walk(get_real_velocity().length() * delta / PIXELS_PER_METER)
 	_update_animation(dir)
 
 
