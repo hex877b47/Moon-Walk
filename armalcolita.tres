@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MineralData" format=3 uid="uid://l1476xv1cl22"]
+
+[ext_resource type="Script" uid="uid://b5sv3lami6v2m" path="res://mineral_data.gd" id="1_enx6d"]
+
+[resource]
+script = ExtResource("1_enx6d")
+id = "armalcolita"
+display_name = "Armalcolita"
+fact = "Fue nombrada así en honor de los tres astronautas del Apolo 11 como un acrónimo de: ARMstrong + ALdrin + COLlins"
+metadata/_custom_type_script = "uid://b5sv3lami6v2m"

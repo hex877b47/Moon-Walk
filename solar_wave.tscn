@@ -21,16 +21,16 @@ offset_bottom = 434.0
 
 [node name="ProgressBar" type="ProgressBar" parent="WarningPanel" unique_id=1658330198]
 layout_mode = 0
-offset_left = 326.0
-offset_top = 15.0
-offset_right = 874.0
-offset_bottom = 98.0
+offset_left = 277.0
+offset_top = 14.0
+offset_right = 825.0
+offset_bottom = 97.0
 
 [node name="WarningLabel" type="Label" parent="WarningPanel" unique_id=1719744843]
 layout_mode = 0
-offset_left = 554.0
+offset_left = 482.0
 offset_top = 100.0
-offset_right = 669.0
+offset_right = 597.0
 offset_bottom = 158.0
 theme_override_font_sizes/font_size = 42
 text = "Alert"

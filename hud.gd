@@ -8,3 +8,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_F3: Stats.set_shelter(not Stats.in_shelter)
 			KEY_F4: TimeManager.day_length_seconds = 20.0
 			KEY_F5: Stats.modules["oxygen_generator"] = not Stats.modules["oxygen_generator"]
+			KEY_F7:Messages.show_from(Stats.flare_pool.pick_random())
+			KEY_CAPSLOCK:
+				Messages.show_from(load("res://Ilmenita.tres"))

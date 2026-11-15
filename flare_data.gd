@@ -13,6 +13,28 @@ var has_sep := false
 var has_cme := false
 var sep_delay_minutes := 0.0
 
+const MONTHS := ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+	"julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+
+func pretty_date() -> String:
+	var p := real_date.split("-")          # ["2024", "05", "14"]
+	if p.size() < 3:
+		return real_date
+	return "%d de %s de %s" % [int(p[2]), MONTHS[int(p[1]) - 1], p[0]]
+
+func to_message() -> InfoMessage:
+	var m := InfoMessage.new()
+	m.title = "Llamarada solar %s" % class_label
+	if has_sep:
+		m.body = "Pasó de verdad el %s. Mandó partículas peligrosas hacia el espacio: por eso conviene estar en la base." % pretty_date()
+	else:
+		m.body = "Pasó de verdad el %s. Fue muy brillante, pero casi no mandó partículas. Lo que daña a los astronautas son las partículas, no solo la luz." % pretty_date()
+	m.source = "Datos reales: NASA DONKI (histórico)"
+	m.accent = Color(1.0, 0.5, 0.15)
+	m.duration = 9.0
+	m.priority = 2
+	return m
+
 static func from_donki(d: Dictionary) -> FlareData:
 	var f := FlareData.new()
 	f.id = d.get("flrID", "")

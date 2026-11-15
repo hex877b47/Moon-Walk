@@ -5,6 +5,8 @@ extends StaticBody2D
 ##   ├─ Sprite2D
 ##   └─ CollisionShape2D
  
+@export var mineral: MineralData
+
 signal depleted
  
 @export var max_health: int = 5
@@ -44,9 +46,11 @@ func _play_hit_effect() -> void:
 	tween.parallel().tween_property(self, "position", start_pos, 0.15)
  
  
+
 func _deplete() -> void:
 	var amount := randi_range(min_amount, max_amount)
 	Inventario.add_item(resource_name, amount)
 	print("Obtuviste %d x %s" % [amount, resource_name])
+	Messages.show_from(mineral)
 	depleted.emit()
 	queue_free()

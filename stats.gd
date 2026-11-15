@@ -140,6 +140,7 @@ func spawn_flare_event() -> void:
 	ev.impact_started.connect(trigger_flare.bind(f.damage_multiplier()))
 	ev.finished.connect(func(): _flare_active = false)
 	print("Llamarada ", f.class_label, " del ", f.real_date)
+	ev.impact_started.connect(func(): Messages.show_from(f))
 
 func trigger_flare(mult: float = 1.0) -> void:
 	flare_happened.emit(in_shelter)
