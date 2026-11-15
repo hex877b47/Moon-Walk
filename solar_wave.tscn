@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://c1bit0ljlva5e"]
-
-[ext_resource type="Script" uid="uid://cyus2nffi7sqa" path="res://solar_flare.gd" id="1_v7e7s"]
-
-[node name="Solar wave" type="Node2D" unique_id=1925613486]
-script = ExtResource("1_v7e7s")
