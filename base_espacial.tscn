@@ -61718,6 +61718,7 @@ sources/7 = SubResource("TileSetAtlasSource_pl0ix")
 sources/8 = SubResource("TileSetAtlasSource_mniee")
 
 [node name="Node2D" type="Node2D" unique_id=1446490814]
+scale = Vector2(0.049, 0.049)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=987928289]
 position = Vector2(30, 18.999998)
