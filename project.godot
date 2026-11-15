@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameClock="*uid://cehhbaywdlmug"
+TimeManager="*uid://d1a0ntgf8g5gq"
 
 [display]
 

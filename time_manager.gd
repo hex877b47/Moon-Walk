@@ -41,3 +41,10 @@ func skip_to_next_day(start_hour: int = 6) -> void:
 	day += 1
 	time_of_day = start_hour * 60.0
 	day_changed.emit(day)
+
+#Minutos totales desde el dia 1, 00:00. No se reinicia
+func get_total_minutes()->float:
+	return (day-1)*MINUTES_PER_DAY+time_of_day
+
+func real_second_to_game_minutes(seconds:float)->float:
+	return seconds * (MINUTES_PER_DAY/day_length_seconds)
