@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://v2juattvoyx"]
+
+[ext_resource type="Script" uid="uid://bdfwvgau51cxg" path="res://stat_bar.gd" id="1_37p78"]
+[ext_resource type="Script" uid="uid://cnuwloj7ev3hl" path="res://hud.gd" id="1_64ctp"]
+
+[node name="Control" type="Control" unique_id=1258076096]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=47943359]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 6
+script = ExtResource("1_64ctp")
+
+[node name="oxygen" type="ProgressBar" parent="VBoxContainer" unique_id=327899984]
+self_modulate = Color(2.695322e-06, 0.86654675, 0.8285341, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+
+[node name="water" type="ProgressBar" parent="VBoxContainer" unique_id=958711130]
+self_modulate = Color(0.052918397, 0.66025674, 0.99999994, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+stat_name = "water"
+
+[node name="food" type="ProgressBar" parent="VBoxContainer" unique_id=1002377778]
+self_modulate = Color(0.9874366, 0.5182894, 0, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+stat_name = "food"
+
+[node name="energy" type="ProgressBar" parent="VBoxContainer" unique_id=333837901]
+self_modulate = Color(0.86730343, 0.23640221, 1, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+stat_name = "energy"
+
+[node name="radiation" type="ProgressBar" parent="VBoxContainer" unique_id=1401557228]
+self_modulate = Color(0.49803922, 1, 0, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+stat_name = "radiation"
+
+[node name="health" type="ProgressBar" parent="VBoxContainer" unique_id=2111356776]
+self_modulate = Color(0.83945715, 0, 0.15792388, 1)
+layout_mode = 2
+script = ExtResource("1_37p78")
+stat_name = "health"
