@@ -8,6 +8,11 @@ signal player_died(reason: String)
 const MAX_VALUE := 100.0
 const MINUTES_PER_DAY := 1440.0
 
+const FLARE_SCENE := preload("res://solar_wave.tscn")
+var flare_pool: Array[FlareData] = []
+var _flare_active := false
+
+
 # ---------- BALANCE (por día, ajustable) ----------
 const BASE_DRAIN := {          # consumo base
 	"oxygen": 10.0,
@@ -62,6 +67,7 @@ var is_dead := false
 func _ready() -> void:
 	TimeManager.minute_changed.connect(_on_minute)
 	TimeManager.day_changed.connect(_on_day_changed)
+	_load_flares()
 
 
 # ---------- TICK POR MINUTO DE JUEGO ----------
@@ -107,13 +113,38 @@ func _on_minute(hour: int, _minute: int) -> void:
 # ---------- TICK POR DÍA ----------
 func _on_day_changed(_day: int) -> void:
 	if randf() < FLARE_CHANCE_PER_DAY:
-		trigger_flare()
+		spawn_flare_event()
 
+func _load_flares() -> void:
+	var file := FileAccess.open("res://data/flares.json", FileAccess.READ)
+	if file == null:
+		push_error("No se encontró res://data/flares.json")
+		return
+	var raw = JSON.parse_string(file.get_as_text())
+	if raw == null:
+		push_error("flares.json tiene un error de formato")
+		return
+	for d in raw:
+		flare_pool.append(FlareData.from_donki(d))
+	print("Llamaradas cargadas: ", flare_pool.size())
+	
+func spawn_flare_event() -> void:
+	if _flare_active or flare_pool.is_empty():
+		return
+	_flare_active = true
+	var f: FlareData = flare_pool.pick_random()
+	var ev := FLARE_SCENE.instantiate() as SolarFlareEvent
+	get_tree().current_scene.add_child(ev)
+	ev.setup(f.game_warning_minutes())
+	ev.duration_minutes = f.game_duration_minutes()
+	ev.impact_started.connect(trigger_flare.bind(f.damage_multiplier()))
+	ev.finished.connect(func(): _flare_active = false)
+	print("Llamarada ", f.class_label, " del ", f.real_date)
 
-func trigger_flare() -> void:
+func trigger_flare(mult: float = 1.0) -> void:
 	flare_happened.emit(in_shelter)
-	change("radiation", FLARE_RADIATION_SHELTER if in_shelter else FLARE_RADIATION_NO_SHELTER)
-
+	var base := FLARE_RADIATION_SHELTER if in_shelter else FLARE_RADIATION_NO_SHELTER
+	change("radiation", base * mult)
 
 # ---------- ACCIONES ----------
 func start_eva(radiation_gain: float = 20.0) -> bool:
