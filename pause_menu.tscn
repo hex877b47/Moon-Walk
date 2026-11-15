@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dnul2uxvba4gu"]
+
+[ext_resource type="Texture2D" uid="uid://b3vm6p8gykkyk" path="res://ui/Menu_pausa.jpg" id="1_hdmo1"]
+[ext_resource type="Script" uid="uid://3m6h1duka5vb" path="res://pause_menu.gd" id="1_nwcfo"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=2108238226]
+process_mode = 3
+layer = 10
+script = ExtResource("1_nwcfo")
+
+[node name="Oscuro" type="ColorRect" parent="." unique_id=302707167]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.003921569)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1066166549]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.5
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer" unique_id=703351363]
+layout_mode = 2
+
+[node name="Fondo" type="TextureRect" parent="AspectRatioContainer/Panel" unique_id=1936918022]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_hdmo1")
+expand_mode = 1
+
+[node name="BtnContinuar" type="Button" parent="AspectRatioContainer/Panel" unique_id=337428927]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.467
+anchor_right = 0.697
+anchor_bottom = 0.588
+offset_right = 2.5159912
+offset_bottom = 10.976013
+flat = true
+
+[node name="BtnReiniciar" type="Button" parent="AspectRatioContainer/Panel" unique_id=1812585243]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.291
+anchor_top = 0.634
+anchor_right = 0.697
+anchor_bottom = 0.761
+offset_top = -7.8320007
+offset_right = 4.515991
+offset_bottom = 8.0
+flat = true
+
+[node name="BtnSalir" type="Button" parent="AspectRatioContainer/Panel" unique_id=333281998]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 505.0
+offset_right = 682.0
+offset_bottom = 606.0
+flat = true
